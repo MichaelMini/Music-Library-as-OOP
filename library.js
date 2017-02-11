@@ -70,7 +70,7 @@ library_playlist.forEach(library.addPlaylist.bind(library));
 
 
 
-var printPlaylists = (function(playlistId) {
+var printPlaylists = function(playlistId) {
   if (!playlistId) {
     for ( var i = 0; i < Object.keys(library.playlists).length; i++ ) {
       listPath     = library.playlists[Object.keys(library.playlists)[i]];
@@ -91,10 +91,10 @@ var printPlaylists = (function(playlistId) {
     aPlaylist    = id + ': ' + name + ' - ' + tracksAmount + ' tracks';
     // console.log(aPlaylist);
   }
-})();
-// printPlaylists();
+};
+printPlaylists();
 
-var printTracks = (function () {
+var printTracks = function () {
   for ( var i = 0; i < Object.keys(library.playlists).length; i++ ) {
     listPath = library.playlists[Object.keys(library.playlists)[i]];
     listPath.tracks.forEach(function(item, index) {
@@ -106,22 +106,16 @@ var printTracks = (function () {
       console.log('printTracks: ', singleTrack);
     })
   }
-})();
-// printTracks();
+};
+printTracks();
 
 var printPlaylist = function (playlistId) {
     var listId = '';
-    this.printPlaylists(playlistId);
-    for ( var i = 0; i < track.length; i++ ) {
-      var trackPath = this.tracks[track[i]];
-      id          = trackPath.id;
-      name        = trackPath.name;
-      artist      = trackPath.artist;
-      album       = trackPath.album;
-      singleTrack = id + ' ' + name + ' by ' + artist + ' (' + album + ')';
-      console.log(singleTrack);
-    }
-  },
+    console.log(playlistId + ':', p01.name, '-', p01.tracks.length, 'tracks');
+    p01.tracks.forEach((item, index) => {
+      console.log(item.id + ':', item.title, 'by', item.artist + '(' + item.album + ')');
+    })
+  }
 printPlaylist('p01');
 
 
