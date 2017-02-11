@@ -19,7 +19,8 @@ function Playlist(name) {
 }
 
 Playlist.prototype.addTracks = function(track) {
-  this.tracks.push(track);
+  this.tracks.push(track); // I should make a uid key instead of push it into an array...
+  // console.log('this.tracks: ', this.tracks);
 };
 Playlist.prototype.overallRating = function() {
   return this.tracks.reduce((sum,track,_,array) => sum + track.rating/array.length,0);
@@ -63,7 +64,7 @@ p02.addTracks(t03);
 var library_playlist = [p01, p02];
 library_playlist.forEach(library.addPlaylist.bind(library));
 
-console.log('Library: ', library.playlists[0].tracks[1]);
+// console.log('Library: ', library.playlists[0].tracks[1]);
 
 
 
@@ -94,25 +95,34 @@ var printPlaylists = (function(playlistId) {
 // printPlaylists();
 
 var printTracks = (function () {
-  library.playlists.forEach(function() {
-    // tracks.forEach(function() {
-
-    // })
-      // console.log(tracks);
-  })
   for ( var i = 0; i < Object.keys(library.playlists).length; i++ ) {
     listPath = library.playlists[Object.keys(library.playlists)[i]];
-    id          = listPath.id;
-    name        = listPath.name;
-    artist      = listPath.artist;
-    album       = listPath.album;
-    singleTrack = id + ' ' + name + ' by ' + artist + ' (' + album + ')';
-    console.log('printTracks: ', singleTrack);
+    listPath.tracks.forEach(function(item, index) {
+      id          = item.id;
+      name        = item.title;
+      artist      = item.artist;
+      album       = item.album;
+      singleTrack = id + ' ' + name + ' by ' + artist + ' (' + album + ')';
+      console.log('printTracks: ', singleTrack);
+    })
   }
 })();
+// printTracks();
 
-
-
+var printPlaylist = function (playlistId) {
+    var listId = '';
+    this.printPlaylists(playlistId);
+    for ( var i = 0; i < track.length; i++ ) {
+      var trackPath = this.tracks[track[i]];
+      id          = trackPath.id;
+      name        = trackPath.name;
+      artist      = trackPath.artist;
+      album       = trackPath.album;
+      singleTrack = id + ' ' + name + ' by ' + artist + ' (' + album + ')';
+      console.log(singleTrack);
+    }
+  },
+printPlaylist('p01');
 
 
 
