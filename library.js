@@ -96,7 +96,14 @@ var printPlaylist = function (playlistId) {
   }
 printPlaylist('p01');
 
+var addTrackToPlaylist = function (trackId, playlistId) {
+  // library.playlists[playlistId].tracks.push(trackId);
+  p02.tracks.push(t02);
 
+  console.log(library.playlists);
+}
+
+addTrackToPlaylist('t02', 'p02');
 
 
 
