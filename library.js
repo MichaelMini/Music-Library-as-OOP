@@ -11,11 +11,12 @@ function Library(name, creator) {
 Library.prototype.addPlaylist = function(playlist) {
   return this.playlists.push(playlist);
 };
-
+var globalPlaylistArray = [];
 function Playlist(name) {
   this.id = 'p' + uid();
   this.name = name;
   this.tracks = [];
+  globalPlaylistArray.push(this);
 }
 
 Playlist.prototype.addTracks = function(track) {
@@ -30,7 +31,7 @@ Playlist.prototype.totalDuration = function() {
     return sum + track.duration;
   }, 0);
 };
-
+var globalTracksArray = [];
 function Track(title, artist, album, rating, duration) {
   this.id = 't' + uid();
   this.title = title;
@@ -38,6 +39,7 @@ function Track(title, artist, album, rating, duration) {
   this.album = album;
   this.rating = rating,
   this.duration = duration;
+  globalTracksArray.push(this);
 }
 
 
@@ -70,7 +72,7 @@ library_playlist.forEach(library.addPlaylist.bind(library));
 
 
 var printPlaylists = function(playlistId) {
-  library.playlists.forEach((item) => {
+  globalPlaylistArray.forEach((item) => {
     playlist = `${item.id}: ${item.name} - ${item.tracks.length} tracks`
     console.log(playlist);
   })
@@ -78,11 +80,9 @@ var printPlaylists = function(playlistId) {
 printPlaylists();
 
 var printTracks = function () {
-  library.playlists.forEach((item) => {
-    item.tracks.forEach((item) => {
-      track = `${item.id} ${item.title} by ${item.artist} (${item.album})`
-      console.log(track);
-    })
+  globalTracksArray.forEach((item) => {
+    track = `${item.id} ${item.title} by ${item.artist} (${item.album})`
+    console.log(track);
   })
 };
 printTracks();
@@ -97,15 +97,28 @@ var printPlaylist = function (playlistId) {
 printPlaylist('p01');
 
 var addTrackToPlaylist = function (trackId, playlistId) {
-  // library.playlists[playlistId].tracks.push(trackId);
   p02.tracks.push(t02);
-
   console.log(library.playlists);
 }
 
 addTrackToPlaylist('t02', 'p02');
 
+var addTrack = function (title, artist, album, rating, duration) {
+  id = 't' + uid();
+  var id = new Track(title, artist, album, rating, duration);
+  console.log('Hello',globalTracksArray);
+}
 
+addTrack('Michael', 'Mike', 'Mikey 2017', 5, 180);
+
+// adds a playlist to the library
+var addPlaylist = function (name) {
+  id = 'p' + uid();
+  var id = new Playlist(name);
+  console.log(globalPlaylistArray);
+}
+
+addPlaylist('Michael flavored');
 
 // var library = {
 //      tracks: { t01: { id    : "t01",
