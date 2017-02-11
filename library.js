@@ -20,8 +20,7 @@ function Playlist(name) {
 }
 
 Playlist.prototype.addTracks = function(track) {
-  this.tracks.push(track); // I should make a uid key instead of push it into an array...
-  // console.log('this.tracks: ', this.tracks);
+  this.tracks.push(track);
 };
 Playlist.prototype.overallRating = function() {
   return this.tracks.reduce((sum,track,_,array) => sum + track.rating/array.length,0);
@@ -42,34 +41,21 @@ function Track(title, artist, album, rating, duration) {
   globalTracksArray.push(this);
 }
 
-
 var library = new Library('My Library', 'Michael');
 
 var t01 = new Track('Code Monkey', 'Jonathan Coulton', 'Thing a Week Three', 5, 180);
 var t02 = new Track('Model View Controller', 'James Dempsey', 'WWDC 2003', 5, 180);
 var t03 = new Track('Four Thirty-Three', 'John Cage', 'Woodstock 1952', 5, 180);
 
-
-// var codingMusic = new Playlist('Coding Music');
-// var otherPlaylist = new Playlist('Other Playlist');
-
 var p01 = new Playlist('Coding Music');
 var p01_tracks = [t01, t02];
 p01_tracks.forEach(p01.addTracks.bind(p01));
-// p01.addTracks(t01);
-// p01.addTracks(t02);
 
 var p02 = new Playlist('Other Playlist');
 p02.addTracks(t03);
 
 var library_playlist = [p01, p02];
 library_playlist.forEach(library.addPlaylist.bind(library));
-
-// console.log('Library: ', library.playlists[0].tracks[1]);
-
-
-
-
 
 var printPlaylists = function(playlistId) {
   globalPlaylistArray.forEach((item) => {
