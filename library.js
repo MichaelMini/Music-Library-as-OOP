@@ -23,11 +23,11 @@ Playlist.prototype.addTracks = function(track) {
   this.tracks.push(track);
 };
 Playlist.prototype.overallRating = function() {
-  return this.tracks.reduce((sum,track,_,array) => sum + track.rating/array.length,0);
+  this.overallRating = this.tracks.reduce((sum,track,_,array) => sum + track.rating/array.length,0);
 };
 Playlist.prototype.totalDuration = function() {
-  return this.tracks.reduce(function(sum, track) {
-    return sum + track.duration;
+  this.totalDuration = this.tracks.reduce(function(sum, track) {
+    return (sum + track.duration);
   }, 0);
 };
 var globalTracksArray = [];
@@ -49,10 +49,19 @@ var t03 = new Track('Four Thirty-Three', 'John Cage', 'Woodstock 1952', 5, 180);
 
 var p01 = new Playlist('Coding Music');
 var p01_tracks = [t01, t02];
+
 p01_tracks.forEach(p01.addTracks.bind(p01));
+p01.totalDuration();
+console.log('p01.totalDuration: ', p01.totalDuration);
+p01.overallRating();
+console.log('p01.overallRating: ', p01.overallRating);
 
 var p02 = new Playlist('Other Playlist');
 p02.addTracks(t03);
+p02.totalDuration();
+console.log('p02.totalDuration: ', p02.totalDuration);
+p02.overallRating();
+console.log('p02.overallRating: ', p01.overallRating);
 
 var library_playlist = [p01, p02];
 library_playlist.forEach(library.addPlaylist.bind(library));
@@ -92,7 +101,7 @@ addTrackToPlaylist('t02', 'p02');
 var addTrack = function (title, artist, album, rating, duration) {
   id = 't' + uid();
   var id = new Track(title, artist, album, rating, duration);
-  console.log('Hello',globalTracksArray);
+  console.log('GlobalTracksArray: ',globalTracksArray);
 }
 
 addTrack('Michael', 'Mike', 'Mikey 2017', 5, 180);
